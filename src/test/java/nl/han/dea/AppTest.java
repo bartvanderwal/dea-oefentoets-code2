@@ -1,9 +1,6 @@
-package com.mycompany.app;
+package nl.han.dea;
 
-import org.junit.Test;
-
-import static org.junit.Assert.assertTrue;
-
+import org.junit.jupiter.api.*;
 
 public class AppTest {
     public AppTest() {
@@ -11,11 +8,11 @@ public class AppTest {
 
     @Test
     public void testApp() {
-        assertTrue(true);
+        Assertions.assertTrue(true);
     }
 
     @Test
     public void testMore() {
-        assertTrue(true);
+        Assertions.assertTrue(true);
     }
 }
