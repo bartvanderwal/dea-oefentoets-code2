@@ -5,9 +5,10 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.*;
 
-public class ParallelFizzBuzzerTest {
+public class FizzBuzzPrinterTest {
 
-    ParallelFizzBuzzer sut;
+    private FizzBuzzPrinter sut;
+
 
     /** The collector is part of the tested unit, so we're not mocking one. */
     FizzBuzzCollector fbCollector;
@@ -19,14 +20,15 @@ public class ParallelFizzBuzzerTest {
 
     @Test
     void testNonParallel() {
-        sut = new ParallelFizzBuzzer(fbCollector);
+        sut = new FizzBuzzPrinter(1);
+
 
         // Arrange.
         var expected = new ArrayList<String>(Arrays.asList("1", "2", "Fuzz", "4", "Bizz", "Fuzz", "7", "8", "Fuzz", "Bizz"));
 
         // Act.
         while (!fbCollector.isDone()) {
-            sut.fizzbuzzNext();
+            parallelFizzBuzzer.fizzbuzzNext();
         }
         var actual = fbCollector.getOutput();
 
@@ -37,14 +39,14 @@ public class ParallelFizzBuzzerTest {
     @Test
     void testParallel() {
 
-        sut = new ParallelFizzBuzzer(fbCollector);
+        parallelFizzBuzzer = new ParallelFizzBuzzer(fbCollector);
 
         // Arrange.
         var expected = new ArrayList<String>(Arrays.asList("1", "2", "Fuzz", "4", "Bizz", "Fuzz", "7", "8", "Fuzz", "Bizz"));
 
         // Act.
         while (!fbCollector.isDone()) {
-            sut.fizzbuzzNext();
+            parallelFizzBuzzer.fizzbuzzNext();
         }
         var actual = fbCollector.getOutput();
 

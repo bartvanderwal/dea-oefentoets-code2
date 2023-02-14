@@ -9,15 +9,11 @@ public class FizzBuzzCollector {
     private final int end;
     private int counter;
 
-    public FizzBuzzCollector(int start, int end) {
-        this.start = start;
+    public FizzBuzzCollector(int end) {
+        this.start = 1;
         this.end = end;
         this.counter = start;
         output = new ArrayList<>(end-start+1);
-    }
-
-    public void increaseCounter() {
-        this.counter++;
     }
 
     private List<String> output;
@@ -35,7 +31,7 @@ public class FizzBuzzCollector {
     }
 
     public int getCounter() {
-        return counter;
+        return counter++;
     }
 
     public void addOutput(String fizzbuzzValue) {
