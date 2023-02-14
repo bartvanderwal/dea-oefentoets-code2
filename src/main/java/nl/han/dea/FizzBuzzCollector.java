@@ -3,21 +3,21 @@ package nl.han.dea;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FizzBuzzInputAndOutput {
+public class FizzBuzzCollector {
 
     private final int start;
     private final int end;
-    private int teller;
+    private int counter;
 
-    public FizzBuzzInputAndOutput(int start, int end) {
+    public FizzBuzzCollector(int start, int end) {
         this.start = start;
         this.end = end;
-        this.teller = start;
+        this.counter = start;
         output = new ArrayList<>(end-start+1);
     }
 
-    public void hoogTellerOp() {
-        this.teller++;
+    public void increaseCounter() {
+        this.counter++;
     }
 
     private List<String> output;
@@ -34,11 +34,15 @@ public class FizzBuzzInputAndOutput {
         return end;
     }
 
-    public int getTeller() {
-        return teller;
+    public int getCounter() {
+        return counter;
     }
 
     public void addOutput(String fizzbuzzValue) {
         output.add(fizzbuzzValue);
+    }
+
+    public boolean isDone() {
+        return this.counter>this.end;
     }
 }
