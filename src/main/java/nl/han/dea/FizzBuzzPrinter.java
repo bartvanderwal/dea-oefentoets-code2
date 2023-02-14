@@ -12,13 +12,13 @@ public class FizzBuzzPrinter {
             nrOfThreads=1;
         }
 
+        if (nrOfThreads>256) {
+            throw new IllegalArgumentException("Gewenste aantal threads is: " + nrOfThreads + ". Maar het maximaal aantal toegestane threads is " + 256);
+        }
+
         var availableProcs = Runtime.getRuntime().availableProcessors();
         if (nrOfThreads>availableProcs) {
             System.out.println("Gewenste aantal threads is: " + nrOfThreads + ". Dat is meer dan aantal cores: " + availableProcs + "; dat is wellicht niet handig.");
-        }
-
-        if (nrOfThreads>256) {
-            throw new IllegalArgumentException("Gewenste aantal threads is: " + nrOfThreads + ". Maar het maximaal aantal toegestane threads is " + 256);
         }
 
         this.nrOfThreads = nrOfThreads;
