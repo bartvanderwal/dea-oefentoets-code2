@@ -3,6 +3,8 @@ package nl.han.dea;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.*;
 
@@ -48,6 +50,7 @@ public class FizzBuzzPrinterTest {
         sut.printFizzbuzzNumbers();
 
         // Wait for fizzbuzz to complete before asserting.
+        // TODO: Perhaps use a countdownLatch and boilerplate code to more nicely await this; see: https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/CountDownLatch.html
         while (!sut.isDone()) {
             TimeUnit.MILLISECONDS.sleep(1);
         }

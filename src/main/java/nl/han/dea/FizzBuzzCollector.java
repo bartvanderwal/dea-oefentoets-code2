@@ -16,9 +16,9 @@ public class FizzBuzzCollector {
         output = new ArrayList<>(end-start+1);
     }
 
-    private List<String> output;
+    private List<FizzBuzzCalculation> output;
 
-    public List<String> getOutput() {
+    public synchronized List<FizzBuzzCalculation> getOutput() {
         return output;
     }
 
@@ -34,7 +34,7 @@ public class FizzBuzzCollector {
         return counter++;
     }
 
-    public synchronized void addOutput(String fizzbuzzValue) {
+    public synchronized void addOutput(FizzBuzzCalculation fizzbuzzValue) {
         output.add(fizzbuzzValue);
     }
 

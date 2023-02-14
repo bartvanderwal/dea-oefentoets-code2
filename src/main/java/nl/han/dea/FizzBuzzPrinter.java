@@ -2,6 +2,7 @@ package nl.han.dea;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class FizzBuzzPrinter {
 
@@ -30,26 +31,23 @@ public class FizzBuzzPrinter {
 
     private FizzBuzzCollector fbCollector;
 
-    // private List<Thread> threadPool;
-
     private int nrOfThreads;
 
-    public List<String> getOutput() {
-        return fbCollector.getOutput();
+    public synchronized List<String> getOutput() {
+        return fbCollector.getOutput().stream().map(o -> o.getOutput()).collect(Collectors.toList());
     }
 
     public void printFizzbuzzNumbers() {        
         for(var i=0; i<nrOfThreads; i++) {
             fbList.add(new ParallelFizzBuzzer(fbCollector));
             var thread = new Thread(fbList.get(i));
-            // threadPool.add(thread);
             thread.start();
         }
 
         // TODO Output ordenen (?).
 
         // Print alle uitgerekende FizzBuzz waarden naar console.
-        for (String item : fbCollector.getOutput()) {
+        for (FizzBuzzCalculation item : fbCollector.getOutput()) {
             System.out.println(item);
         }
     }

@@ -13,8 +13,9 @@ public class ParallelFizzBuzzer implements Runnable {
 
     public void fizzbuzz() {
         while(!fbCollector.isDone()) {
-            String fizzBuzzValue = fb.fizzbuzz(fbCollector.getCounter());
-            fbCollector.addOutput(fizzBuzzValue);
+            var valueToFizzbuzz = fbCollector.getCounter();
+            String fizzBuzzedValue = fb.fizzbuzz(valueToFizzbuzz);
+            fbCollector.addOutput(new FizzBuzzCalculation(valueToFizzbuzz, fizzBuzzedValue, Thread.currentThread().getId()));
         }
     }
 
