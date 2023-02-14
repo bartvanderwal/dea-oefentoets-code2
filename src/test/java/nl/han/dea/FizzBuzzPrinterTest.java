@@ -17,12 +17,12 @@ public class FizzBuzzPrinterTest {
     @BeforeEach
     void beforeEach() {
         // Arrange.
-        expected = new ArrayList<String>(Arrays.asList("1", "2", "Fuzz", "4", "Bizz", "Fuzz", "7", "8", "Fuzz", "Bizz"));
+        expected = new ArrayList<String>(Arrays.asList("1", "2", "Fuzz", "4", "Bizz", "Fuzz", "7", "8", "Fuzz", "Bizz", "11", "Fuzz", "13", "14", "FuzzBizz", "16", "17", "Fuzz", "19", "Bizz"));
     }
 
     @Test
     void testNonParallel() throws InterruptedException {
-        var sut = new FizzBuzzPrinter(10, 1);
+        var sut = new FizzBuzzPrinter(20, 1);
 
         // Act.
         sut.printFizzbuzzNumbers();
@@ -42,7 +42,7 @@ public class FizzBuzzPrinterTest {
     @Test
     void testParallel() throws InterruptedException {
         // Arrange.
-        var sut = new FizzBuzzPrinter(10, 2);
+        var sut = new FizzBuzzPrinter(20, 8);
 
         // Act.
         sut.printFizzbuzzNumbers();
@@ -59,4 +59,31 @@ public class FizzBuzzPrinterTest {
         Assertions.assertEquals(expected, actual);
     }
 
+    @Test
+    void testVeryParallel() throws InterruptedException {
+        // Arrange.
+        var sut = new FizzBuzzPrinter(20, 20);
+
+        // Act.
+        sut.printFizzbuzzNumbers();
+
+        // Wait for fizzbuzz to complete before asserting.
+        while (!sut.isDone()) {
+            TimeUnit.MILLISECONDS.sleep(1);
+        }
+        TimeUnit.SECONDS.sleep(1);
+        
+        var actual = sut.getOutput();
+
+        // Assert.
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    void testTooParallel() throws InterruptedException {
+        // Arrange.
+        Assertions.assertThrows(
+            IllegalArgumentException.class, 
+            () -> { var sut = new FizzBuzzPrinter(20, 257); });
+    }
 }

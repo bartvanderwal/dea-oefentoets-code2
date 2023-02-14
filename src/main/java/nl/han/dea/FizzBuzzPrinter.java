@@ -17,12 +17,10 @@ public class FizzBuzzPrinter {
         }
 
         if (nrOfThreads>256) {
-            System.out.println("Gewenste aantal threads is: " + nrOfThreads + ". Maar het maximaal aantal threads is " + 256);
-            nrOfThreads=256;
+            throw new IllegalArgumentException("Gewenste aantal threads is: " + nrOfThreads + ". Maar het maximaal aantal toegestane threads is " + 256);
         }
 
         this.nrOfThreads = nrOfThreads;
-        // threadPool = new ArrayList<>(nrOfThreads);
         fbList = new ArrayList<>(nrOfThreads);
 
         fbCollector = new FizzBuzzCollector(maxValue); 

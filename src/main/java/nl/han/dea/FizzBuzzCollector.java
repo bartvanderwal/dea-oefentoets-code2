@@ -30,11 +30,11 @@ public class FizzBuzzCollector {
         return end;
     }
 
-    public int getCounter() {
+    public synchronized int getCounter() {
         return counter++;
     }
 
-    public void addOutput(String fizzbuzzValue) {
+    public synchronized void addOutput(String fizzbuzzValue) {
         output.add(fizzbuzzValue);
     }
 
