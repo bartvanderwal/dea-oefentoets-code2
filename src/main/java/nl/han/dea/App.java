@@ -9,7 +9,7 @@ public class App {
         var output = stringHelpers.concatenatePairwise(input);
         System.out.println(output);
 
-        var app = new FizzBuzzPrinter(1);
+        var app = new FizzBuzzPrinter(10, 1);
         app.printFizzbuzzNumbers();
     }
 

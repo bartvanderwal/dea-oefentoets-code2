@@ -2,53 +2,58 @@ package nl.han.dea;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.jupiter.api.*;
 
 public class FizzBuzzPrinterTest {
 
-    private FizzBuzzPrinter sut;
-
-
     /** The collector is part of the tested unit, so we're not mocking one. */
     FizzBuzzCollector fbCollector;
 
+
+    private ArrayList<String> expected;
+
     @BeforeEach
     void beforeEach() {
-        fbCollector = new FizzBuzzCollector(1, 10);
+        // Arrange.
+        expected = new ArrayList<String>(Arrays.asList("1", "2", "Fuzz", "4", "Bizz", "Fuzz", "7", "8", "Fuzz", "Bizz"));
     }
 
     @Test
-    void testNonParallel() {
-        sut = new FizzBuzzPrinter(1);
-
-
-        // Arrange.
-        var expected = new ArrayList<String>(Arrays.asList("1", "2", "Fuzz", "4", "Bizz", "Fuzz", "7", "8", "Fuzz", "Bizz"));
+    void testNonParallel() throws InterruptedException {
+        var sut = new FizzBuzzPrinter(10, 1);
 
         // Act.
-        while (!fbCollector.isDone()) {
-            parallelFizzBuzzer.fizzbuzzNext();
+        sut.printFizzbuzzNumbers();
+
+        // Wait for fizzbuzz to complete before asserting.
+        // Await dynamically instead of with fixed 1 second for faster unit tests.
+        // Note: Still waiting for a millisecond between checks, otherwise getDeclaredFields error or something.
+        while (!sut.isDone()) {
+            TimeUnit.MILLISECONDS.sleep(1);
         }
-        var actual = fbCollector.getOutput();
+        var actual = sut.getOutput();
 
         // Assert.
         Assertions.assertEquals(expected, actual);
     }
 
     @Test
-    void testParallel() {
-
-        parallelFizzBuzzer = new ParallelFizzBuzzer(fbCollector);
-
+    void testParallel() throws InterruptedException {
         // Arrange.
-        var expected = new ArrayList<String>(Arrays.asList("1", "2", "Fuzz", "4", "Bizz", "Fuzz", "7", "8", "Fuzz", "Bizz"));
+        var sut = new FizzBuzzPrinter(10, 2);
 
         // Act.
-        while (!fbCollector.isDone()) {
-            parallelFizzBuzzer.fizzbuzzNext();
+        sut.printFizzbuzzNumbers();
+
+        // Wait for fizzbuzz to complete before asserting.
+        while (!sut.isDone()) {
+            TimeUnit.MILLISECONDS.sleep(1);
         }
-        var actual = fbCollector.getOutput();
+        TimeUnit.SECONDS.sleep(1);
+        
+        var actual = sut.getOutput();
 
         // Assert.
         Assertions.assertEquals(expected, actual);
