@@ -53,7 +53,7 @@ public class FizzBuzzPrinter {
         // Output ordenen (omdat thread executie volgorde onbepaalbaar/onbestuurbaar is).
         var ordered = fizzbuzzNumbers.stream()
             .sorted((r1, r2) -> r1.getInput()-r1.getInput())
-            .map(r -> r.getOutput()).collect(Collectors.toList());        
+            .map(r -> r.getOutput()).toList();  
 
         if (ordered.size()==0) {
             System.out.println("Ain't nothing there :S");
