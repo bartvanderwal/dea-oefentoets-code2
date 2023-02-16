@@ -7,10 +7,11 @@ public class App {
         var input = List.of("Jan", "Jansen", "Henk", "van den Tillaert");
         var stringHelpers = new StringHelpers();
         var output = stringHelpers.concatenatePairwise(input);
-        System.out.println(output);
-
+     
         var fbPrinter = new FizzBuzzPrinter(1000, 3);
         fbPrinter.printFizzbuzzNumbers();
+
+        System.out.println(output);
     }
 
 }
