@@ -1,9 +1,7 @@
 package nl.han.dea;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class FizzBuzzPrinter {
@@ -25,8 +23,8 @@ public class FizzBuzzPrinter {
             System.out.println("Gewenste aantal threads is: " + nrOfThreads + ". Dat is meer dan aantal cores: " + availableProcs + "; dat is wellicht niet handig.");
         }
 
-        this.nrOfThreads = nrOfThreads;
         fbCollector = new FizzBuzzCollector(maxValue);
+        this.nrOfThreads = nrOfThreads;
     }
 
     /** Constructor met default values. */
@@ -39,8 +37,9 @@ public class FizzBuzzPrinter {
     public void printFizzbuzzNumbers() throws InterruptedException {        
         // Determine fizzbuzz numbers concurrently.
         for(var i=0; i<nrOfThreads; i++) {
-            var pfb = new ParallelFizzBuzzer(fbCollector);
-            new Thread(pfb).start();
+            // var pfb = new ParallelFizzBuzzer(fbCollector);
+            // new Thread(pfb).start();
+            new Thread(() -> new ParallelFizzBuzzer(fbCollector).fizzbuzz()).start();
         }
 
         // Print determined FizzBuzz values to console.
@@ -51,7 +50,8 @@ public class FizzBuzzPrinter {
         }
 
         // Output ordenen (omdat thread executie volgorde onbepaalbaar/onbestuurbaar is).
-        var ordered = fizzbuzzNumbers.stream()
+        var dontOrder = false;
+        var ordered = dontOrder ? fizzbuzzNumbers : fizzbuzzNumbers.stream()
             .sorted((r1, r2) -> r1.getInput()-r1.getInput())
             .map(r -> r.getOutput()).toList();  
 

@@ -6,8 +6,8 @@ public class ParallelFizzBuzzer implements Runnable {
 
     private FizzBuzzer fb;
 
-    public ParallelFizzBuzzer(FizzBuzzCollector fbIo) {
-        this.fbCollector = fbIo;
+    public ParallelFizzBuzzer(FizzBuzzCollector fbCollector) {
+        this.fbCollector = fbCollector;
         fb = new FizzBuzzer();
     }
 

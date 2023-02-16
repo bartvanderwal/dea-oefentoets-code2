@@ -5,29 +5,16 @@ import java.util.List;
 
 public class FizzBuzzCollector {
 
+    private int counter;
     private final int start;
     private final int end;
-    private int counter;
+    private List<FizzBuzzCalculation> output;
 
     public FizzBuzzCollector(int end) {
         this.start = 1;
         this.end = end;
         this.counter = start;
         output = new ArrayList<>(end-start+1);
-    }
-
-    private List<FizzBuzzCalculation> output;
-
-    public synchronized List<FizzBuzzCalculation> getOutput() {
-        return output;
-    }
-
-    public int getStart() {
-        return start;
-    }
-
-    public int getEnd() {
-        return end;
     }
 
     public synchronized int getCounter() {
@@ -41,4 +28,9 @@ public class FizzBuzzCollector {
     public synchronized boolean isDone() {
         return this.counter>this.end;
     }
+
+    public synchronized List<FizzBuzzCalculation> getOutput() {
+        return output;
+    }
+
 }
