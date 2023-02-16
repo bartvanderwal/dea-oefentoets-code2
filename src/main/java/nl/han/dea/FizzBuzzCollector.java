@@ -25,12 +25,12 @@ public class FizzBuzzCollector {
         output.add(fizzbuzzValue);
     }
 
-    public synchronized boolean isDone() {
-        return this.counter>this.end;
-    }
-
     public synchronized List<FizzBuzzCalculation> getOutput() {
         return output;
+    }
+
+    public synchronized boolean isDone() {
+        return this.counter>this.end;
     }
 
 }

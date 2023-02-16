@@ -39,7 +39,9 @@ public class FizzBuzzPrinter {
         for(var i=0; i<nrOfThreads; i++) {
             // var pfb = new ParallelFizzBuzzer(fbCollector);
             // new Thread(pfb).start();
-            new Thread(() -> new ParallelFizzBuzzer(fbCollector).fizzbuzz()).start();
+            new Thread(() -> {
+                new ParallelFizzBuzzer(fbCollector).fizzbuzz();
+            }).start();
         }
 
         // Print determined FizzBuzz values to console.
@@ -50,7 +52,7 @@ public class FizzBuzzPrinter {
         }
 
         // Output ordenen (omdat thread executie volgorde onbepaalbaar/onbestuurbaar is).
-        var dontOrder = false;
+        var dontOrder = true;
         var ordered = dontOrder ? fizzbuzzNumbers : fizzbuzzNumbers.stream()
             .sorted((r1, r2) -> r1.getInput()-r1.getInput())
             .map(r -> r.getOutput()).toList();  
@@ -64,7 +66,7 @@ public class FizzBuzzPrinter {
         }
     }
 
-    public boolean isDone() {
+    public synchronized boolean isDone() {
         return fbCollector.isDone();
     }
 
