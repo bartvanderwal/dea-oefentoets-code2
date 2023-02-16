@@ -23,6 +23,23 @@ public class FizzBuzzPrinterTest {
     }
 
     @Test
+    void testDefault() throws InterruptedException {
+        var sut = new FizzBuzzPrinter();
+
+        // Act.
+        sut.printFizzbuzzNumbers();
+
+        // Wait for fizzbuzz to complete before asserting.
+        while (!sut.isDone()) {
+            TimeUnit.MILLISECONDS.sleep(1);
+        }
+        var actual = sut.getOutput();
+
+        // Assert.
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
     void testNonParallel() throws InterruptedException {
         var sut = new FizzBuzzPrinter(20, 1);
 
@@ -50,7 +67,8 @@ public class FizzBuzzPrinterTest {
         sut.printFizzbuzzNumbers();
 
         // Wait for fizzbuzz to complete before asserting.
-        // TODO: Perhaps use a countdownLatch and boilerplate code to more nicely await this; see: https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/CountDownLatch.html
+        // TODO: Perhaps use a Java `CountdownLatch` and matching boilerplate code to more nicely await this;
+        // See: https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/CountDownLatch.html
         while (!sut.isDone()) {
             TimeUnit.MILLISECONDS.sleep(1);
         }

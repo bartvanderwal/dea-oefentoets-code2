@@ -2,9 +2,13 @@ package nl.han.dea;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class FizzBuzzPrinter {
+
+    private int nrOfThreads;
 
     // TODO: Code smells eruit halen.
     public FizzBuzzPrinter(int maxValue, int nrOfThreads) {
@@ -22,37 +26,51 @@ public class FizzBuzzPrinter {
         }
 
         this.nrOfThreads = nrOfThreads;
-        fbList = new ArrayList<>(nrOfThreads);
-
-        fbCollector = new FizzBuzzCollector(maxValue); 
+        fbCollector = new FizzBuzzCollector(maxValue);
     }
 
-    private List<ParallelFizzBuzzer> fbList;
+    /** Constructor met default values. */
+    public FizzBuzzPrinter() {
+        this(20, Runtime.getRuntime().availableProcessors());
+    }
 
     private FizzBuzzCollector fbCollector;
 
-    private int nrOfThreads;
-
-    public synchronized List<String> getOutput() {
-        return fbCollector.getOutput().stream().map(o -> o.getOutput()).collect(Collectors.toList());
-    }
-
-    public void printFizzbuzzNumbers() {        
+    public void printFizzbuzzNumbers() throws InterruptedException {        
+        // Determine fizzbuzz numbers concurrently.
         for(var i=0; i<nrOfThreads; i++) {
-            fbList.add(new ParallelFizzBuzzer(fbCollector));
-            var thread = new Thread(fbList.get(i));
-            thread.start();
+            var pfb = new ParallelFizzBuzzer(fbCollector);
+            new Thread(pfb).start();
         }
 
-        // TODO Output ordenen (?).
+        // Print determined FizzBuzz values to console.
+        var fizzbuzzNumbers = fbCollector.getOutput();
+        System.out.println("Print concurrently acquired fizzbuzz results...");
+        while (!isDone()) {
+            TimeUnit.MILLISECONDS.sleep(1);
+        }
 
-        // Print alle uitgerekende FizzBuzz waarden naar console.
-        for (FizzBuzzCalculation item : fbCollector.getOutput()) {
-            System.out.println(item);
+        // Output ordenen (omdat thread executie volgorde onbepaalbaar/onbestuurbaar is).
+        var ordered = fizzbuzzNumbers.stream()
+            .sorted((r1, r2) -> r1.getInput()-r1.getInput())
+            .map(r -> r.getOutput()).collect(Collectors.toList());        
+
+        if (ordered.size()==0) {
+            System.out.println("Ain't nothing there :S");
+        } else {
+            for (FizzBuzzCalculation item : fizzbuzzNumbers) {
+                System.out.println(item);
+            }
         }
     }
 
     public boolean isDone() {
         return fbCollector.isDone();
     }
+
+    public synchronized List<String> getOutput() {
+        // Haal alleen fizzbuzz output veld uit fizzbuzzcalculation waarden. Typisch om te printen of te vergelijken.
+        return fbCollector.getOutput().stream().map(o -> o.getOutput()).collect(Collectors.toList());
+    }
+
 }

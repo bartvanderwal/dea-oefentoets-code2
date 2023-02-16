@@ -18,6 +18,10 @@ public class FizzBuzzCalculation {
         return output;
     }
 
+    public int getInput() {
+        return input;
+    }
+    
     public String toString() {
         return "input: " + input + ". output: " + output + ". ThreadId: " + threadId;
     }

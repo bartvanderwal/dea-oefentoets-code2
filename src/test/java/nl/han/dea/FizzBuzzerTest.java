@@ -20,7 +20,8 @@ public class FizzBuzzerTest {
         var actual = sut.fizzbuzz(1);
 
         // Assert.
-        Assertions.assertEquals(expected, actual);    }
+        Assertions.assertEquals(expected, actual);
+    }
 
     @Test
     public void testFizzBuzz() {

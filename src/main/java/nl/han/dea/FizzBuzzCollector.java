@@ -38,7 +38,7 @@ public class FizzBuzzCollector {
         output.add(fizzbuzzValue);
     }
 
-    public boolean isDone() {
+    public synchronized boolean isDone() {
         return this.counter>this.end;
     }
 }
