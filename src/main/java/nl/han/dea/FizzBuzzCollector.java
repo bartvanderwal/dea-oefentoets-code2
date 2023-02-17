@@ -6,15 +6,13 @@ import java.util.List;
 public class FizzBuzzCollector {
 
     private int counter;
-    private final int start;
     private final int end;
     private List<FizzBuzzCalculation> output;
 
     public FizzBuzzCollector(int end) {
-        this.start = 1;
         this.end = end;
-        this.counter = start;
-        output = new ArrayList<>(end-start+1);
+        this.counter = 1;
+        output = new ArrayList<>(end);
     }
 
     public synchronized int getCounter() {
