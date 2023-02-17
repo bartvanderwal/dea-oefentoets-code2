@@ -8,7 +8,7 @@ public class App {
         var stringHelpers = new StringHelpers();
         var output = stringHelpers.concatenatePairwise(input);
      
-        var fbPrinter = new FizzBuzzPrinter(1000, 3);
+        var fbPrinter = new FizzBuzzPrinter(1000, 3, false);
         fbPrinter.printFizzbuzzNumbers();
 
         System.out.println(output);

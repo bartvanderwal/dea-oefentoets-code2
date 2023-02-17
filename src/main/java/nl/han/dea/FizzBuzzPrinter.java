@@ -8,8 +8,10 @@ public class FizzBuzzPrinter {
 
     private int nrOfThreads;
 
+    private boolean orderResults;
+
     // TODO: Code smells eruit halen.
-    public FizzBuzzPrinter(int maxValue, int nrOfThreads) {
+    public FizzBuzzPrinter(int maxValue, int nrOfThreads, boolean orderResults) {
         if (nrOfThreads==0) {
             nrOfThreads=1;
         }
@@ -25,11 +27,16 @@ public class FizzBuzzPrinter {
 
         fbCollector = new FizzBuzzCollector(maxValue);
         this.nrOfThreads = nrOfThreads;
+        this.orderResults = orderResults;
     }
 
     /** Constructor met default values. */
     public FizzBuzzPrinter() {
-        this(20, Runtime.getRuntime().availableProcessors());
+        this(20, Runtime.getRuntime().availableProcessors(), true);
+    }
+
+    public FizzBuzzPrinter(int maxValue, int nrOfThreads) {
+        this(maxValue, nrOfThreads, true);
     }
 
     private FizzBuzzCollector fbCollector;
