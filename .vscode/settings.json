@@ -5,5 +5,9 @@
         "fizzbuzz",
         "Henk",
         "Tillaert"
-    ]
+    ],
+    // "koverage.coverageFileNames": ["*.xml"],// coverage file names to look for, default: ["lcov.info", "cov.xml", "coverage.xml","jacoco.xml"]
+    // "koverage.coverageFilePaths": ["target.surefire-reports"], //coverage paths where coverage files are located, default: ["coverage"]
+    // "koverage.lowCoverageThreshold": 70, // Percentage under which, the coverage is considered too low (Renders as Error icon)
+    // "koverage.sufficientCoverageThreshold": 80 // Percentage above which, the coverage is considered sufficient (Renders as Success icon) => lowCoverageThreshold < level < sufficientCoverageThreshold is rendered as Warn icon
 }

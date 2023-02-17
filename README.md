@@ -2,6 +2,18 @@
 
 Deze repo bevat de code voor opgaven van de proeftoets voor DEA.
 
+# Runnen en testen
+
+Run in je favoriete IDE zoals IntelliJ, of gebruik 'Run en Debug' in Visual Studio Code of GitHub Codespace.
+
+Om unit tests te draaien gebruik:
+`mvn test`
+
+Om code coverage rapporten te zien gebruik:
+`mvn package`
+
+De `JaCoCo` Maven dependency is aanwezig om **Ja**va **Co**de **Co**verage te bepalen. Ook is de VS Code Koverage extensie aangeraden om coverage per folder en file te tonen in de 'Testing' pane.
+
 ## Code runnen direct in GitHub
 
 Je kunt deze code naast clonen en lokaal runnen in VS Code of IntelliJ Idea ook direct runnen op GitHub zelf. Namelijk via een GitHub code space. Zie hieronder een deel van de uitleg uit oorspronkelijke `vs-code-remote-try-java` repository (klik [hier](https://github.com/microsoft/vscode-remote-try-java) voor volledige README uit die repo).
