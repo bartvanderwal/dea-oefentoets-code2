@@ -12,7 +12,7 @@ Om unit tests te draaien gebruik:
 Om code coverage rapporten te zien gebruik:
 `mvn package`
 
-De `JaCoCo` Maven dependency is aanwezig om **Ja**va **Co**de **Co**verage te bepalen. Ook is de VS Code Koverage extensie aangeraden om coverage per folder en file te tonen in de 'Testing' pane.
+De `JaCoCo` Maven dependency is aanwezig om **Ja**va **Co**de **Co**verage te bepalen. Ook raad ik de [VS Code Koverage extensie](https://marketplace.visualstudio.com/items?itemName=tenninebt.vscode-koverage) om coverage per folder en file te tonen in een nieuwe 'Testing' pane.
 
 ## Code runnen direct in GitHub
 
